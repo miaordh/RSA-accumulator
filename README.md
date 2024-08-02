@@ -1,14 +1,19 @@
 # RSA-accumulator
 Original GitHub project by oleiba
+
 Cryptographic accumulator based on the strong RSA assumption [Bd94, BP97, CL02, BBF18].<br>
 Generating and verifying proofs in Python, verifier in Solidity.<br>
 
-A Sepolia implementation of the original project
+A Sepolia implementation of the original project.
 
 ### Prerequesites
 
 * Python3 
-* Node.js 10.14.0, NPM
+* Node.js 20.15.1, NPM
+* hardhat 2.22.6, NPM
+* ethers 5.7.2, NPM
+* @nomiclabs/hardhat-ethers 2.2.3, NPM
+* dotenv 16.4.5, NPM
 
 ### Unit testing
 
@@ -21,16 +26,29 @@ A Sepolia implementation of the original project
 $ python3 test-performance.py
 ```
 
-* Compare gas results (compared with Merkle Proof verifier [2]) :
+### How to run the project
+
+Download all dependencies first.
+
+Create an `.env` file according to `.env.example`
+
+Copy all contents in `hardhat.config.js.example.txt` to replace hardhat.config.js before compilation.
+
+Run the following commands:
+
 ```
-$ npm install
-$ node test-gas.js
+$ npx hardhat compile
+$ npx hardhat run deployments/deploy.js --network sepolia
 ```
 
-The tests above generate relevant data files at the `generated` directory.
+Copy contract addresses into `.env`
 
-[1] https://github.com/Tierion/pymerkletools <br> 
-[2] https://github.com/ameensol/merkle-tree-solidity
+Run:
+
+```
+$ node interact.js
+```
+
 
 ### References
 
