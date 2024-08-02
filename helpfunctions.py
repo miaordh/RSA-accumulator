@@ -147,3 +147,96 @@ def calculate_product(lst):
     for x in lst:
         r *= x
     return r
+
+# ----------------------- The following are new help functions -----------------------
+
+def write_list_to_file(elements, filename):
+    """
+    Writes a list of strings or integers to a text file, with each element separated by a newline.
+
+    Args:
+        elements (list): List of strings or integers to write.
+        filename (str): Name of the output text file.
+
+    Returns:
+        None
+    """
+    with open(filename, 'w') as file:
+        file.write('\n'.join(map(str, elements)))  # Join elements with newline separato
+
+def extract_merkle_proof(proof_list):
+    """
+    Extracts the side (0 for left, 1 for right) and hash strings from a list of dictionaries representing a Merkle proof.
+
+    Args:
+        proof_list (list[dict]): List of dictionaries with 'left' or 'right' keys and SHA256 hash values.
+
+    Returns:
+        tuple: Two ordered lists (sides, hashes).
+            - sides (list[int]): List of 0s and 1s indicating sibling position (0 = left, 1 = right).
+            - hashes (list[str]): List of SHA256 hash strings.
+    """
+    sides = []
+    hashes = []
+
+    for proof in proof_list:
+        if 'left' in proof:
+            sides.append(0)
+            hashes.append('0x' + proof['left'])
+        elif 'right' in proof:
+            sides.append(1)
+            hashes.append('0x' + proof['right'])
+
+    return sides, hashes
+
+def hash_strings(strings):
+    hashed_list = []
+    for s in strings:
+        # Calculate the SHA-256 hash of each string
+        hashed_value = hashlib.sha256(s.encode()).hexdigest()
+        hashed_list.append(hashed_value)
+    return hashed_list
+
+
+def create_random_list(size):
+    result = []
+    for index in range(0, size):
+        random_element = random.randint(1, pow(2, 128))
+        result.append(random_element)
+    return result
+
+def hash_integers(integers):
+    """
+    Hashes a list of decimal integers using SHA-256.
+
+    Args:
+        integers (list of int): List of decimal integers.
+
+    Returns:
+        list of str: List of SHA-256 hashes (in hexadecimal format).
+    """
+    hashed_list = []
+    for num in integers:
+        # Convert the integer to bytes (using 32 bytes for SHA-256)
+        num_bytes = num.to_bytes(32, byteorder='big')
+
+        # Create a SHA-256 hash object
+        hash_obj = hashlib.sha256()
+        hash_obj.update(num_bytes)
+
+        # Get the hexadecimal digest
+        hash_hex = hash_obj.hexdigest()
+        hashed_list.append(hash_hex)
+
+    return hashed_list
+
+def make_even_size(hex_num):
+    if len(hex_num) % 2 != 0:
+        return '0x0' + hex_num[2:]
+    else:
+        return hex_num
+
+def to_padded_num_str(num, length_in_bytes):
+    length_in_hex_str = length_in_bytes * 2 + 2
+    num_str = format(num, '#0' + str(length_in_hex_str) + 'x')
+    return num_str
