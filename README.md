@@ -1,7 +1,9 @@
 # RSA-accumulator
-
+Original GitHub project by oleiba
 Cryptographic accumulator based on the strong RSA assumption [Bd94, BP97, CL02, BBF18].<br>
 Generating and verifying proofs in Python, verifier in Solidity.<br>
+
+A Sepolia implementation of the original project
 
 ### Prerequesites
 
