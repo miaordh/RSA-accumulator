@@ -1,63 +1,34 @@
 pragma solidity ^0.5.0;
 
 contract MerkleProof {
+    // Function to check if a Merkle proof is valid
 
-    event Result(bool res);
 
-    function checkProof(bytes memory proof, bytes32 root, bytes32 hash) public returns (bool) {
-        bytes32 el;
-        bytes32 h = hash;
+    function checkProof(
+        bytes32[] memory proof, // Merkle proof (array of SHA256 hashes)
+        bytes32 root, // Merkle root (SHA256 hash)
+        bytes32 leaf, // Leaf to be verified (SHA256 hash)
+        uint8[] memory sides // Array of 0s and 1s indicating sibling position (0 = left, 1 = right)
+    ) public pure returns (bool) {
+        bytes32 computedHash = leaf;
 
-        for (uint256 i = 32; i <= proof.length; i += 32) {
-            assembly {
-                el := mload(add(proof, i))
-            }
+        // Iterate over each proof element
+        for (uint256 i = 0; i < proof.length; i++) {
+            bytes32 proofElement = proof[i];
+            uint8 side = sides[i];
 
-            if (h < el) {
-                h = keccak256(abi.encode(h, el));
+            // Check if the proof element is on the left or right
+            if (side == 0) {
+                // Combine the computed hash with the proof element (left)
+                computedHash = sha256(abi.encodePacked(proofElement, computedHash));
             } else {
-                h = keccak256(abi.encode(el, h));
+                // Combine the proof element with the computed hash (right)
+                computedHash = sha256(abi.encodePacked(computedHash, proofElement));
             }
         }
 
-        emit Result(h == root);
-    }
-
-    // from StorJ -- https://github.com/nginnever/storj-audit-verifier/blob/master/contracts/MerkleVerifyv3.sol
-    function checkProofOrdered(
-        bytes memory proof, bytes32 root, bytes32 hash, uint256 index
-    ) public returns (bool) {
-        // use the index to determine the node ordering
-        // index ranges 1 to n
-
-        bytes32 el;
-        bytes32 h = hash;
-        uint256 remaining;
-
-        for (uint256 j = 32; j <= proof.length; j += 32) {
-            assembly {
-                el := mload(add(proof, j))
-            }
-
-            // calculate remaining elements in proof
-            remaining = (proof.length - j + 32) / 32;
-
-            // we don't assume that the tree is padded to a power of 2
-            // if the index is odd then the proof will start with a hash at a higher
-            // layer, so we have to adjust the index to be the index at that layer
-            while (remaining > 0 && index % 2 == 1 && index > 2 ** remaining) {
-                index = uint(index) / 2 + 1;
-            }
-
-            if (index % 2 == 0) {
-                h = keccak256(abi.encode(el, h));
-                index = index / 2;
-            } else {
-                h = keccak256(abi.encode(h, el));
-                index = uint(index) / 2 + 1;
-            }
-        }
-
-        emit Result(h == root);
+        // Check if the computed hash matches the Merkle root
+        return computedHash == root;
+        
     }
 }
