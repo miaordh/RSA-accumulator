@@ -26,6 +26,8 @@ A Sepolia implementation of the original project.
 $ python3 test-performance.py
 ```
 
+* The Python file `implementation.py` can also show performance.
+
 ### How to run the project
 
 Download all dependencies first.
@@ -33,6 +35,10 @@ Download all dependencies first.
 Create an `.env` file according to `.env.example`
 
 Copy all contents in `hardhat.config.js.example.txt` to replace hardhat.config.js before compilation.
+
+Build an empty directory called `textlist`.
+
+Run the Python file `implementation.py` to see performance and generate necessary text lists for smart contract deployment and interaction.
 
 Run the following commands:
 
