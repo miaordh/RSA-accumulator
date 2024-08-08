@@ -164,6 +164,18 @@ def write_list_to_file(elements, filename):
     with open(filename, 'w') as file:
         file.write('\n'.join(map(str, elements)))  # Join elements with newline separato
 
+def write_two_d_array_to_file(two_d_array, filename):
+    try:
+        with open(filename, 'w') as file:
+            for i, row in enumerate(two_d_array):
+                # Join the elements in the row with commas
+                row_str = ','.join(str(elem) for elem in row)
+                file.write(row_str)
+                if i < len(two_d_array) - 1:
+                    file.write('\n')  # Add a newline after each row except the last one
+    except Exception as e:
+        print(f"Error writing to {filename}: {e}")
+
 def extract_merkle_proof(proof_list):
     """
     Extracts the side (0 for left, 1 for right) and hash strings from a list of dictionaries representing a Merkle proof.
@@ -198,10 +210,10 @@ def hash_strings(strings):
     return hashed_list
 
 
-def create_random_list(size):
+def create_random_list(size, bit_length):
     result = []
     for index in range(0, size):
-        random_element = random.randint(1, pow(2, 128))
+        random_element = random.randint(1, pow(2, bit_length)-1)
         result.append(random_element)
     return result
 
@@ -217,8 +229,8 @@ def hash_integers(integers):
     """
     hashed_list = []
     for num in integers:
-        # Convert the integer to bytes (using 32 bytes for SHA-256)
-        num_bytes = num.to_bytes(32, byteorder='big')
+        # Convert the integer to bytes (using variable-length bytes)
+        num_bytes = num.to_bytes((num.bit_length() + 7) // 8, byteorder='big')
 
         # Create a SHA-256 hash object
         hash_obj = hashlib.sha256()
