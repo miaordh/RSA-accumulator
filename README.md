@@ -8,7 +8,8 @@ A Sepolia implementation of the original project.
 
 ### Prerequesites
 
-* Python3 
+* Python3
+* python-dotenv
 * Node.js 20.15.1, NPM
 * hardhat 2.22.6, NPM
 * ethers 5.7.2, NPM
