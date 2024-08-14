@@ -6,19 +6,17 @@ Generating and verifying proofs in Python, verifier in Solidity.<br>
 
 A Sepolia implementation of the original project.
 
-### Prerequesites
+### Dependencies assumed
 
 * Python3
 * python-dotenv
-* Node.js 20.15.1, NPM
-* hardhat 2.22.6, NPM
-* ethers 5.7.2, NPM
-* @nomiclabs/hardhat-ethers 2.2.3, NPM
-* dotenv 16.4.5, NPM
+* NPM
 
 ### Unit testing
 
-`$ python3 -m unittest test`
+```
+$ python3 -m unittest test
+```
 
 ### Benchmarks
 
@@ -31,26 +29,37 @@ $ python3 test-performance.py
 
 ### How to run the project
 
-Download all dependencies first.
+1. Check if you have all dependencies assumed. For ```python-dotenv```, you may install by running:
+```
+$ python3 -m pip install python-dotenv
+```
 
-Create an `.env` file according to `.env.example`
+2. Run the command to install the other dependencies:
 
-Copy all contents in `hardhat.config.js.example.txt` to replace hardhat.config.js before compilation.
+```
+$ npm install
+```
 
-Build an empty directory called `textlist`.
+3. Create an `.env` file according to `.env.example`. You may leave fields ```MerkleProof_ADDRESS``` and ```RSAAccumulator_ADDRESS``` empty now.
 
-Run the Python file `implementation.py` to see performance and generate necessary text lists for smart contract deployment and interaction.
+4. Run the Python file `implementation.py` to see performance. Meanwhile, ```implementation.py``` also generates necessary text files for smart contract deployment and interaction.
 
-Run the following commands:
+5. Run the following commands for compilation and deployment of contracts:
 
 ```
 $ npx hardhat compile
 $ npx hardhat run deployments/deploy.js --network sepolia
 ```
+Copy the contract addresses into `.env` accordingly. You can find the contract addresses in the printouts that look like:
 
-Copy contract addresses into `.env`
+```
+MerkleProof Contract Deployed to Address: 0x1234567890abcdef1234567890abcdef12345678
+RSAAccumulator Contract Deployed to Address: 0x7890abcdef1234567890abcdef1234567890abcd
+```
 
-Run:
+
+
+6. Run:
 
 ```
 $ node interact.js
@@ -65,4 +74,5 @@ alternative to digital sinatures](https://link.springer.com/content/pdf/10.1007/
 schemes without trees](https://link.springer.com/content/pdf/10.1007/3-540-69053-0_33.pdf), Niko Bari and Birgit Pfitzmann. <br>
 [CL02] [Dynamic accumulators and application to
 efficient revocation of anonymous credentials](https://link.springer.com/content/pdf/10.1007/3-540-45708-9_5.pdf), Jan Camenisch and Anna Lysyanskaya. <br>
-[BBF18] [Batching Techniques for Accumulators with Applications to IOPs and Stateless Blockchains](https://eprint.iacr.org/2018/1188.pdf), Dan Boneh, Benedikt Bünz, Benjamin Fisch.<br>
+[BBF18] [Batching Techniques for Accumulators with Applications to IOPs and Stateless Blockchains](~https://eprint.iacr.org/2018/1188.pdf~), Dan Boneh, Benedikt Bünz, Benjamin Fisch.<br>
+
