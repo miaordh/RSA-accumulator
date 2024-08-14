@@ -24,5 +24,6 @@ gasReporterOutput.json
 
 # Ignore contents of textlist folder
 textlist/*
+!textlist/.gitkeep
 
 __pycache__/
