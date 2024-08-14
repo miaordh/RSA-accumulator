@@ -9,10 +9,6 @@ cache/
 .env
 *.secret
 
-# Hardhat local files
-# hardhat.config.js
-# hardhat.network.config.js
-
 # System files
 .DS_Store
 *.swp
@@ -26,6 +22,7 @@ gasReporterOutput.json
 # Log files
 *.log
 
-__pycache__/
-
+# Ignore contents of textlist folder
 textlist/*
+
+__pycache__/
