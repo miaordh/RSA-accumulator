@@ -96,7 +96,7 @@ def batch_prove_membership_with_NIPoE(A0, S, x_list, n, w):
     nonces_list = []
     for x in x_list:
         nonces_list.append(S[x])
-    product = __calculate_primes_product(x_list, nonces_list)
+    product = calculate_primes_product(x_list, nonces_list)
     (Q, l_nonce) = prove_exponentiation(u, product, w, n)
     return Q, l_nonce, u
 
@@ -132,7 +132,7 @@ def verify_exponentiation(Q, l_nonce, u, x, x_nonce, w, n):
 
 
 def batch_verify_membership_with_NIPoE(Q, l_nonce, u, x_list, x_nonces_list, w, n):
-    product = __calculate_primes_product(x_list, x_nonces_list)
+    product = calculate_primes_product(x_list, x_nonces_list)
     return __verify_exponentiation(Q, l_nonce, u, product, w, n)
 
 
@@ -183,7 +183,7 @@ def batch_delete_using_membership_proofs(A_pre_delete, S, x_list, proofs_list, n
         for i, indexes in enumerate(agg_indexes):
             current_x_list = x_list[indexes[0]: indexes[1]]
             current_nonce_list = [S[x] for x in current_x_list]
-            product = __calculate_primes_product(current_x_list, current_nonce_list)
+            product = calculate_primes_product(current_x_list, current_nonce_list)
             members.append(product)
             for x in current_x_list:
                 del S[x]
@@ -207,11 +207,11 @@ def verify_membership(A, x, nonce, proof, n):
 
 
 def batch_verify_membership(A, x_list, nonce_list, proof, n):
-    product = __calculate_primes_product(x_list, nonce_list)
+    product = calculate_primes_product(x_list, nonce_list)
     return __verify_membership(A, product, proof, n)
 
 
-def __calculate_primes_product(x_list, nonce_list):
+def calculate_primes_product(x_list, nonce_list):
     if len(x_list) != len(nonce_list):
         return None
 

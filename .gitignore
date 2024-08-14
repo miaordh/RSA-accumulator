@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Hardhat build directory
+artifacts/
+cache/
+
+# Secrets
+.env
+*.secret
+
+# Hardhat local files
+# hardhat.config.js
+# hardhat.network.config.js
+
+# System files
+.DS_Store
+*.swp
+*.lock
+
+# Optional files
+coverage/
+coverage.json
+gasReporterOutput.json
+
+# Log files
+*.log
+
+__pycache__/
+
+textlist/*
