@@ -5,6 +5,8 @@ import random
 import hashlib
 import secrets
 import math
+import sys
+sys.set_int_max_str_digits(10000000)
 
 
 def rabin_miller(num):

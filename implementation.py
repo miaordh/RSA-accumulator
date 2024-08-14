@@ -11,7 +11,7 @@ RANDOM_LIST_SIZE = int(config["RANDOM_LIST_SIZE"])
 RANDOM_LIST_MAXIMUM_LENGTH = int(config["RANDOM_LIST_MAXIMUM_LENGTH"])
 SINGLE_PROVE_INDEX = int(config["SINGLE_PROVE_INDEX"])
 BATCH_PROVE_SIZE = int(config["BATCH_PROVE_SIZE"])
-# sys.set_int_max_str_digits(1000000)
+sys.set_int_max_str_digits(10000000)
 
 # Create random list
 random_list = create_random_list(RANDOM_LIST_SIZE, RANDOM_LIST_MAXIMUM_LENGTH)
