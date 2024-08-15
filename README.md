@@ -18,6 +18,8 @@ A Sepolia implementation of the original project.
 $ python3 -m unittest test
 ```
 
+In test.py, hash_to_prime function outputs prime with 128-bit length, regardless of value set up in .env.
+
 ### Benchmarks
 
 * Compare performance (compared with Python Merkle Tree [1]):

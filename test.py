@@ -8,6 +8,8 @@ from main import setup, add, prove_membership, delete, verify_membership, \
         create_all_membership_witnesses, aggregate_membership_witnesses, calculate_product
 from unittest import TestCase
 
+# Here, hash_to_prime prime size is still 128. Check codes for details.
+
 
 def create_list(size):
         res = []

@@ -6,7 +6,13 @@ import hashlib
 import secrets
 import math
 import sys
+from dotenv import dotenv_values
+
 sys.set_int_max_str_digits(10000000)
+
+config = dotenv_values(".env")
+
+HASH_TO_PRIME_LENGTH = int(config["HASH_TO_PRIME_LENGTH"])
 
 
 def rabin_miller(num):
@@ -74,7 +80,7 @@ def generate_two_large_distinct_primes(num_of_bits):
             return p, q
 
 
-def hash_to_prime(x, num_of_bits=128, nonce=0):
+def hash_to_prime(x, num_of_bits=HASH_TO_PRIME_LENGTH, nonce=0):
     while True:
         num = hash_to_length(x + nonce, num_of_bits)
         if is_prime(num):

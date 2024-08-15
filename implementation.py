@@ -11,6 +11,7 @@ RANDOM_LIST_SIZE = int(config["RANDOM_LIST_SIZE"])
 RANDOM_LIST_MAXIMUM_LENGTH = int(config["RANDOM_LIST_MAXIMUM_LENGTH"])
 SINGLE_PROVE_INDEX = int(config["SINGLE_PROVE_INDEX"])
 BATCH_PROVE_SIZE = int(config["BATCH_PROVE_SIZE"])
+HASH_TO_PRIME_LENGTH = int(config["HASH_TO_PRIME_LENGTH"])
 sys.set_int_max_str_digits(10000000)
 
 # Create random list
@@ -81,7 +82,7 @@ with open("./textlist/A_proof_hex.txt",'w') as A_proof_file:
     A_proof_file.write(A_proof_hex)
 with open("./textlist/nonce_verify_hex.txt",'w') as nonce_verify_file:
     nonce_verify_file.write(hex(nonce_verify))
-checked_hashed_to_prime = to_padded_num_str(hash_to_prime(checked, num_of_bits=128, nonce=nonce_verify)[0], 32)
+checked_hashed_to_prime = to_padded_num_str(hash_to_prime(checked, num_of_bits=256, nonce=nonce_verify)[0], 32)
 with open("./textlist/element_{}_hashed_to_prime.txt".format(SINGLE_PROVE_INDEX),'w') as element_hashed_to_prime_file:
     element_hashed_to_prime_file.write(checked_hashed_to_prime)
 

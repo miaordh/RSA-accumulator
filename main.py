@@ -3,9 +3,14 @@ import secrets
 from helpfunctions import concat, generate_two_large_distinct_primes, hash_to_prime, bezoute_coefficients,\
     mul_inv, shamir_trick, calculate_product
 
+from dotenv import dotenv_values
+
+config = dotenv_values(".env")
+HASH_TO_PRIME_LENGTH = int(config["HASH_TO_PRIME_LENGTH"])
+
 RSA_KEY_SIZE = 3072  # RSA key size for 128 bits of security (modulu size)
 RSA_PRIME_SIZE = int(RSA_KEY_SIZE / 2)
-ACCUMULATED_PRIME_SIZE = 128  # taken from: LLX, "Universal accumulators with efficient nonmembership proofs", construction 1
+ACCUMULATED_PRIME_SIZE = HASH_TO_PRIME_LENGTH  # 128 taken from: LLX, "Universal accumulators with efficient nonmembership proofs", construction 1
 
 
 def setup():

@@ -108,4 +108,4 @@ async function batchVerifyRSAAccumulator() {
 }
 validMerkleProof();
 verifyRSAAccumulator();
-batchVerifyRSAAccumulator();
+// batchVerifyRSAAccumulator();
